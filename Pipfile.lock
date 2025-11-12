@@ -1,0 +1,21 @@
+{
+    "_meta": {
+        "hash": {
+            "sha256": "58b0b15c95274283a500a282c2c038d198abf83970a86b6975a9f97bf5729d74"
+        },
+        "pipfile-spec": 6,
+        "requires": {
+            "python_full_version": "3.14.0",
+            "python_version": "3.14"
+        },
+        "sources": [
+            {
+                "name": "pip_conf_index_global",
+                "url": "https://anu9rng:AP6eY5xuhS1MqAdy5jedftw3ndQq7MHjXL8Rpb@rb-artifactory.bosch.com/artifactory/api/pypi/python-virtual/simple",
+                "verify_ssl": true
+            }
+        ]
+    },
+    "default": {},
+    "develop": {}
+}
