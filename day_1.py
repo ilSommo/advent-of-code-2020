@@ -24,6 +24,8 @@ def star_1(puzzle_input):
         if entry_0 + entry_1 == 2020:
             return entry_0 * entry_1
 
+    return None
+
 
 def star_2(puzzle_input):
     """Solve second puzzle."""
@@ -32,6 +34,8 @@ def star_2(puzzle_input):
     for entry_0, entry_1, entry_2 in itertools.combinations(entries, 3):
         if entry_0 + entry_1 + entry_2 == 2020:
             return entry_0 * entry_1 * entry_2
+
+    return None
 
 
 def parse_input(puzzle_input):
