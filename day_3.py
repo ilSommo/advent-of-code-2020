@@ -31,7 +31,7 @@ def star_2(puzzle_input):
 
 
 def get_trees(puzzle_input, right, down):
-    """Get tree coordinates from puzzle input."""
+    """Get trees encountered with given slope."""
     period = len(puzzle_input[0])
 
     return sum(
