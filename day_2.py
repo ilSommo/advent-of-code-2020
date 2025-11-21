@@ -8,7 +8,7 @@ __license__ = "MIT"
 def main():
     """Solve day 2 puzzles."""
     with open("inputs/day_2.txt", encoding="ascii") as input_file:
-        puzzle_input = tuple(line.rstrip() for line in input_file.readlines())
+        puzzle_input = tuple(line.rstrip() for line in input_file)
 
     print(star_1(puzzle_input))
     print(star_2(puzzle_input))
@@ -19,9 +19,11 @@ def star_1(puzzle_input):
     valid = 0
 
     for line in puzzle_input:
-        min_times, max_times = map(int, line.split()[0].split("-"))
-        letter = line.split()[1][0]
-        password = line.split()[2]
+        parts = line.split()
+
+        min_times, max_times = map(int, parts[0].split("-"))
+        letter = parts[1][0]
+        password = parts[2]
 
         valid += int(min_times <= password.count(letter) <= max_times)
 
@@ -33,11 +35,13 @@ def star_2(puzzle_input):
     valid = 0
 
     for line in puzzle_input:
-        index_0, index_1 = map(int, line.split()[0].split("-"))
-        letter = line.split()[1][0]
-        password = line.split()[2]
+        parts = line.split()
 
-        valid += (password[index_0 - 1] == letter) != (
+        index_0, index_1 = map(int, parts[0].split("-"))
+        letter = parts[1][0]
+        password = parts[2]
+
+        valid += (password[index_0 - 1] == letter) ^ (
             password[index_1 - 1] == letter
         )
 

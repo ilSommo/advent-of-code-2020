@@ -4,13 +4,13 @@ __author__ = "Martino M. L. Pulici <martino.pulici@proton.me>"
 __date__ = "2025"
 __license__ = "MIT"
 
-import string
+from string import hexdigits
 
 
 def main():
     """Solve day 4 puzzles."""
     with open("inputs/day_4.txt", encoding="ascii") as input_file:
-        puzzle_input = tuple(line.rstrip() for line in input_file.readlines())
+        puzzle_input = tuple(line.rstrip() for line in input_file)
 
     print(star_1(puzzle_input))
     print(star_2(puzzle_input))
@@ -28,21 +28,6 @@ def star_2(puzzle_input):
     passports = get_passports(puzzle_input)
 
     return sum(is_valid(passport) for passport in passports)
-
-
-def get_passports(puzzle_input):
-    """Get passports from input."""
-    passports = [{}]
-
-    for line in puzzle_input:
-        if not line:
-            passports.append({})
-
-        else:
-            for entry in line.split():
-                passports[-1][entry.split(":")[0]] = entry.split(":")[1]
-
-    return tuple(passports)
 
 
 def check_byr(passport):
@@ -70,20 +55,18 @@ def check_hcl(passport):
     """Check hcl validity."""
     hcl = passport["hcl"]
 
-    return hcl[0] == "#" and all(char in string.hexdigits for char in hcl[1:])
+    return hcl[0] == "#" and all(char in hexdigits for char in hcl[1:])
 
 
 def check_hgt(passport):
     """Check hgt validity."""
     hgt = passport["hgt"]
 
-    if not hgt[:-2].isdigit() or hgt[-2:] not in ("cm", "in"):
-        return False
+    if hgt.endswith("cm"):
+        return hgt[:-2].isdigit() and 150 <= int(hgt[:-2]) <= 193
 
-    if ("cm" in hgt and 150 <= int(hgt[:-2]) <= 193) or (
-        "in" in hgt and 59 <= int(hgt[:-2]) <= 76
-    ):
-        return True
+    if hgt.endswith("in"):
+        return hgt[:-2].isdigit() and 59 <= int(hgt[:-2]) <= 76
 
     return False
 
@@ -100,6 +83,22 @@ def check_pid(passport):
     pid = passport["pid"]
 
     return pid.isdigit() and len(pid) == 9
+
+
+def get_passports(puzzle_input):
+    """Get passports from input."""
+    passports = [{}]
+
+    for line in puzzle_input:
+        if not line:
+            passports.append({})
+
+        else:
+            for entry in line.split():
+                key, value = entry.split(":")
+                passports[-1][key] = value
+
+    return tuple(passports)
 
 
 def is_valid(passport):
