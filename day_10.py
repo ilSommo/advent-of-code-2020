@@ -4,8 +4,6 @@ __author__ = "Martino M. L. Pulici <martino.pulici@proton.me>"
 __date__ = "2025"
 __license__ = "MIT"
 
-from collections import deque
-
 
 def main():
     """Solve day 10 puzzles."""
@@ -30,10 +28,16 @@ def star_1(puzzle_input):
 def star_2(puzzle_input):
     """Solve second puzzle."""
     adapters = get_adapters(puzzle_input)
+    ways = {0: 1}
 
-    arrangements = set()
-    queue = deque([list(adapters)])
-    # TODO
+    for adapter in adapters[1:]:
+        ways[adapter] = (
+            ways.get(adapter - 3, 0)
+            + ways.get(adapter - 2, 0)
+            + ways.get(adapter - 1, 0)
+        )
+
+    return ways[adapters[-1]]
 
 
 def get_adapters(puzzle_input):
